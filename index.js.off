@@ -1,0 +1,37 @@
+import { join } from 'path';
+const telescope = require('@osmonauts/telescope');
+
+const protoDirs = [join(__dirname, '/../proto')];
+const outPath = join(__dirname, './done');
+
+telescope({
+  protoDirs,
+  outPath,
+
+  // all options are totally optional ;)
+  options: {
+    prototypes: {
+      includePackageVar: false,
+      typingsFormat: {
+        useExact: false,
+        timestamp: 'date',
+        duration: 'duration'
+      },
+    },
+    aminoEncoding: {
+      enabled: true
+    },
+    lcdClients: {
+      enabled: false
+    },
+    rpcClients: {
+      enabled: false,
+      camelCase: true
+    }
+  }
+}).then(()=>{
+  console.log('✨ all done!');
+}).catch( (e: Error) =>{
+  console.error(e);
+  process.exit(1);
+})
